@@ -13,7 +13,7 @@ private:
 	node* head = nullptr;
 	int cacheNodeCount = 0;
 
-public:
+public: 
 
 	/* This function returns a cache int containing how many nodes exist */
 	int retNodeCount() const {
@@ -179,6 +179,31 @@ public:
 			}
 			temp->next = curr->next;
 
+			delete curr;
+			cacheNodeCount--;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/* This function deletes a node and its object based on the index provided by the user. Returns true/false if success/fail respectively */
+	template <typename T>
+	bool delNodeAndObjectByIndex(int index) {
+		if (index < cacheNodeCount) {
+			int tempIndex = 0;
+			node* curr = head;
+			node* temp = curr;
+
+			while (tempIndex != index) {
+				temp = curr;
+				curr = curr->next;
+				tempIndex++;
+			}
+			temp->next = curr->next;
+
+			delete (T*)curr->obj;
 			delete curr;
 			cacheNodeCount--;
 			return true;
